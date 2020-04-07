@@ -103,7 +103,7 @@ describe('VIISP auth', () => {
     instance = new ViispAuthClient(clientStub);
   });
 
-  describe('client', function() {
+  describe('client', function () {
     beforeEach(async () => {
       clientStub.ExternalAuthenticationServiceImplService.ExternalAuthenticationServiceImplPort.initAuthentication.respondWithSuccess();
       clientStub.ExternalAuthenticationServiceImplService.ExternalAuthenticationServiceImplPort.getAuthenticationData.respondWithSuccess();

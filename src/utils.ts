@@ -39,7 +39,7 @@ const getDateFromId = (personalId: string) => {
   const sexObject = SEX_AND_SENTURY_MAP[sexStr];
   const dateStr = personalId.substr(1, 7);
 
-  moment.parseTwoDigitYear = function(year) {
+  moment.parseTwoDigitYear = function (year) {
     return sexObject.key < 5 ? parseInt(year, 10) + 1900 : parseInt(year, 10) + 2000;
   };
 

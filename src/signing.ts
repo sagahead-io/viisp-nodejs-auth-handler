@@ -11,7 +11,7 @@ class CustomKeyInfoProvider extends FileKeyInfo {
     this.certBuffer = cert;
   }
 
-  public getKey = function(): Buffer {
+  public getKey = function (): Buffer {
     return this.certBuffer;
   };
 }
