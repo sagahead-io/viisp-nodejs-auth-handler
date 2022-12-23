@@ -38,15 +38,15 @@ const getNodeByExpr = (expression: string, xml: string): SelectedValue => {
 };
 
 export const sign = async (
-  xml: string,
-  nodeName: 'authenticationRequest' | 'authenticationDataRequest',
-  cert: Buffer = null
+  xml: string, // expectina ticket xml arba identity xml templeitu
+  nodeName: 'authenticationRequest' | 'authenticationDataRequest', // template referencas arba to arba to
+  cert: Buffer = null // test certas
 ) => {
-  const noNewLinesXml = xml.replace(/(\r\n|\n|\r)/gm, '');
-  const expression = `//*[local-name(.)='${nodeName}']`;
-  const sig = new SignedXml();
+  const noNewLinesXml = xml.replace(/(\r\n|\n|\r)/gm, ''); // kadangi expectina string xml template, stripina new linus jeigu tokie butu
+  const expression = `//*[local-name(.)='${nodeName}']`; // cia expression sukuria kuris veliau bus naudojamas reiksmei pareplacinti
+  const sig = new SignedXml(); // sukuria signedxml generic objekta su "local-name" kuria veliau pakeisim
 
-  sig.addReference(
+  sig.addReference( // sitas metodas panaudoja expressiona, kad rastu kur pakeisti referencus, cia metadata reikalinga jog signed xml atitiktu tai ko expectina viisp auth api
     expression,
     [
       'http://www.w3.org/2000/09/xmldsig#enveloped-signature',
@@ -55,8 +55,11 @@ export const sign = async (
     'http://www.w3.org/2000/09/xmldsig#sha1'
   );
 
-  sig.signingKey = await getSigningStr(cert);
-  sig.computeSignature(noNewLinesXml);
+  sig.signingKey = await getSigningStr(cert); // i signedxml objekta uzsetina signingKey
+  sig.computeSignature(noNewLinesXml); sitoj stadijoj signing objektas paruostas 1. xmlas suformuotas, expressionai suformuoti
+
+  // cia padares console.log(sig.getSignedXml()) pamatytum tiksliai kaip atrodo tinkamai suformuotas ir uzsignintas xml'a kuri naudosi paduodamas i soap clienta
+  console.log(sig.getSignedXml());
   return sig.getSignedXml();
 };
 
