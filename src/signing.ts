@@ -56,7 +56,7 @@ export const sign = async (
   );
 
   sig.signingKey = await getSigningStr(cert); // i signedxml objekta uzsetina signingKey
-  sig.computeSignature(noNewLinesXml); sitoj stadijoj signing objektas paruostas 1. xmlas suformuotas, expressionai suformuoti
+  sig.computeSignature(noNewLinesXml); // sitoj stadijoj signing objektas paruostas 1. xmlas suformuotas, expressionai suformuoti
 
   // cia padares console.log(sig.getSignedXml()) pamatytum tiksliai kaip atrodo tinkamai suformuotas ir uzsignintas xml'a kuri naudosi paduodamas i soap clienta
   console.log(sig.getSignedXml());
